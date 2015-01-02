@@ -1,0 +1,21 @@
+#ifndef STOPKICKERCOMMAND_H
+#define STOPKICKERCOMMAND_H
+
+#include "../CommandBase.h"
+
+/**
+ *
+ *
+ * @author Patrick
+ */
+class StopKickerCommand: public CommandBase {
+public:
+	StopKickerCommand();
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
+};
+
+#endif

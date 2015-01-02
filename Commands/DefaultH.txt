@@ -1,0 +1,21 @@
+#ifndef DEFAULTHARVESTCOMMAND_H
+#define DEFAULTHARVESTCOMMAND_H
+
+#include "../CommandBase.h"
+
+/**
+ *
+ *
+ * @author Patrick
+ */
+class DefaultHarvestCommand: public CommandBase {
+public:
+	DefaultHarvestCommand();
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
+};
+
+#endif

@@ -1,0 +1,135 @@
+#include "BCTHarvesterAngle.h"
+#include "../Robotmap.h"
+#include "../Commands/DefaultHarvestCommand.h"
+
+
+BCTHarvesterAngle::BCTHarvesterAngle() : Subsystem("BCTHarvesterAngle") 
+{
+	
+	BCTTalonAngle = new Talon(3);
+	LimitSwitch1 = new DigitalInput(2);
+	LimitSwitch2 = new DigitalInput(3);
+	Pots1 = new AnalogChannel(1);
+	
+}
+    
+void BCTHarvesterAngle::InitDefaultCommand() {
+	// Set the default command for a subsystem here.
+	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new DefaultHarvestCommand);
+	
+}
+
+void BCTHarvesterAngle::TopValue()
+{
+	
+	//double potvalue = Pots1->GetValue();
+
+		//printf("TopValue\n");
+		//while(potvalue != 604){
+			double potvalue = Pots1->GetValue();
+			bool limitvalue = LimitSwitch1->Get();
+		if (potvalue>626.5){
+			BCTTalonAngle->Set(-0.25);
+			//printf("%lf\n", potvalue);
+			//Wait(5.0);
+		}
+		else if (potvalue<559){
+			BCTTalonAngle->Set(0.5);
+			//printf("%lf\n", potvalue);
+			//Wait(5.0);		
+		}
+		else if (limitvalue == true){
+			BCTTalonAngle->Set(-.25);
+			Wait(0.5);
+		}
+		else {
+			BCTTalonAngle->Set((-0.75/67.5)*potvalue+(419.25/67.5)+.5);
+		}
+		//printf("%lf\n", potvalue);
+		//Wait(5.0);
+	//}
+}	
+
+
+void BCTHarvesterAngle::MedValue()
+{
+	//printf("MedValue\n");
+	
+		double potvalue = Pots1->GetValue();
+		
+		if (potvalue>394.5){
+			BCTTalonAngle->Set(-0.25);
+			//printf("%lf\n", potvalue);
+			//Wait(5.0);
+		}
+		else if (potvalue<327){
+			BCTTalonAngle->Set(0.5);
+			//printf("%lf\n", potvalue);
+			//Wait(5.0);
+		}
+		else {
+			double potvalue = Pots1->GetValue();
+
+			double midanglespeed = ((-0.75/67.5)*potvalue+(245.25/67.5)+.5); 
+			BCTTalonAngle->Set(midanglespeed);
+			
+			//printf("%lf\n", midanglespeed);
+			//printf("%lf\n", potvalue);
+		}
+		//printf("%lf\n", potvalue);
+		//Wait(5.0);
+}
+
+void BCTHarvesterAngle::LowValue()
+{
+	//printf("LowValue\n");
+		double potvalue = Pots1->GetValue();
+		bool limitvalue2 = LimitSwitch2->Get();
+		if (potvalue>183.5){
+			BCTTalonAngle->Set(-0.25);
+		}
+		else if (potvalue<116){
+			BCTTalonAngle->Set(0.5);
+			//printf("%lf\n", potvalue);
+			//Wait(5.0);
+		}
+		else if (limitvalue2 == true){
+			BCTTalonAngle->Set(0.5);
+			Wait(0.5);	
+		}
+		else {
+			BCTTalonAngle->Set((-0.75/67.5)*potvalue+(87/67.5)+.5);
+			//printf("%lf", (-1.0/240.0)*potvalue+(101.0/240.0)+.25);
+		}
+		//printf("%lf\n", potvalue);
+		//Wait(5.0);
+}
+	
+void BCTHarvesterAngle::DefaultMethod(float speed)
+{
+	//printf("Joystick\n");
+	bool limitvalue = LimitSwitch1->Get();
+	bool limitvalue2 = LimitSwitch2->Get();
+	if(limitvalue == true){
+		BCTTalonAngle->Set(-0.25);
+		Wait(0.5);
+	}
+	else if(limitvalue2 == true){
+		BCTTalonAngle->Set(0.5);
+		Wait(0.5);
+	}
+	BCTTalonAngle->Set(.5*speed);
+}
+
+void BCTHarvesterAngle::StopHarvester()
+{
+	//printf("Stop\n");
+	BCTTalonAngle->Set(0.0);
+}
+/*void BCTHarvesterAngle::Manual(float anglecont){
+	BCTTalonAngle->Set(anglecont);
+}*/
+
+// Put methods for controlling this subsystem
+// here. Call these from Commands.

@@ -1,0 +1,27 @@
+#ifndef OI_H
+#define OI_H
+
+#include "WPILib.h"
+
+class OI {
+private:
+
+public:
+	OI();
+	Joystick *joystick1;
+	Joystick *joystick2;
+	Joystick *joystick3;
+	Joystick *joystick4;
+	
+	//JoystickButton *manualbutton;
+	JoystickButton *button1;//kick the ball
+	//JoystickButton *button2;
+	JoystickButton *button7;//harvester angle top
+	JoystickButton *button9;//harvester angle med
+	JoystickButton *button11;//harvester angle low
+	
+	JoystickButton *manualbutton1;//harvester angle manual
+	JoystickButton *manualbutton7;//stop kicker
+};
+
+#endif

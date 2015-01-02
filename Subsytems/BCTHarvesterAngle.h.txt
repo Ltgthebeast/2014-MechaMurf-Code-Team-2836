@@ -1,0 +1,32 @@
+#ifndef HARVESTERANGLE_H
+#define HARVESTERANGLE_H
+#include "Commands/Subsystem.h"
+#include "WPILib.h"
+
+/**
+ *
+ *
+ * @author Patrick
+ */
+class BCTHarvesterAngle: public Subsystem {
+private:
+	// It's desirable that everything possible under private except
+	// for methods that implement subsystem capabilities
+	
+	DigitalInput *LimitSwitch1;
+	DigitalInput *LimitSwitch2;
+	Talon *BCTTalonAngle;
+	AnalogChannel *Pots1;
+	
+public:
+	BCTHarvesterAngle();
+	void InitDefaultCommand();//methods
+	void TopValue();
+	void MedValue();
+	void LowValue();
+	void DefaultMethod (float speed);
+	void StopHarvester();
+	
+};
+
+#endif

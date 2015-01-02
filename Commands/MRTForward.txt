@@ -1,0 +1,34 @@
+#include "MRTForward.h"
+#include "../Subsystems/MRTSub.h"
+
+MRTForward::MRTForward() {
+	// Use requires() here to declare subsystem dependencies
+	// eg. requires(chassis);
+	Requires(mrtsub);
+}
+
+// Called just before this Command runs the first time
+void MRTForward::Initialize() {
+	
+}
+
+// Called repeatedly when this Command is scheduled to run
+void MRTForward::Execute() {
+	mrtsub->AutoDrive();//calls auto drive for autonomous
+	Wait(0.65);
+}
+
+// Make this return true when this Command no longer needs to run execute()
+bool MRTForward::IsFinished() {
+	return true;
+}
+
+// Called once after isFinished returns true
+void MRTForward::End() {
+	mrtsub->AutoStop();
+}
+
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void MRTForward::Interrupted() {
+}

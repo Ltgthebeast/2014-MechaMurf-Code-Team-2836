@@ -1,0 +1,35 @@
+#include "MRTSub.h"
+#include "../Robotmap.h"
+#include "../Commands/MRTCommand.h"
+#include "../Commands/MRTForward.h"
+
+MRTSub::MRTSub() : Subsystem("MRTDirvetrain") {
+	LeftDriveTalon = new Talon(1);
+	RightDriveTalon = new Talon(2);
+}
+    
+void MRTSub::InitDefaultCommand() {
+	// Set the default command for a subsystem here.
+	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new MRTCommand());
+}
+void MRTSub::LDrive(float speed){// method for left side of drive train
+	LeftDriveTalon->Set(speed);
+}
+void MRTSub::RDrive(float speed){// method for right side of drive train
+	RightDriveTalon->Set(-speed);
+}
+void MRTSub::AutoDrive(){// start driving in autonomaus
+	LeftDriveTalon->SetSafetyEnabled(false);
+	RightDriveTalon->SetSafetyEnabled(false);
+	
+	LeftDriveTalon->Set(-0.5);
+	RightDriveTalon->Set(0.5);
+}
+
+void MRTSub::AutoStop(){// stoping in autonomaus
+	LeftDriveTalon->Set(0.0);
+	RightDriveTalon->Set(0.0);
+}
+// Put methods for controlling this subsystem
+// here. Call these from Commands.

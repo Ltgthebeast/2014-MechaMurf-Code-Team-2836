@@ -1,0 +1,34 @@
+#include "DefaultHarvestCommand.h"
+
+DefaultHarvestCommand::DefaultHarvestCommand() {
+	// Use requires() here to declare subsystem dependencies
+	// eg. requires(chassis);
+	Requires(bctharvesterangle);
+}
+
+// Called just before this Command runs the first time
+void DefaultHarvestCommand::Initialize() {
+	
+}
+
+// Called repeatedly when this Command is scheduled to run
+void DefaultHarvestCommand::Execute() {
+	bctharvesterangle->DefaultMethod(oi->joystick4->GetY());//getting the y axis for the harvester
+	
+}
+
+// Make this return true when this Command no longer needs to run execute()
+bool DefaultHarvestCommand::IsFinished() {
+	return false;
+}
+
+// Called once after isFinished returns true
+void DefaultHarvestCommand::End() {
+	//bctharvesterangle->StopHarvester();
+}
+
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void DefaultHarvestCommand::Interrupted() {
+	//bctharvesterangle->StopHarvester();
+}

@@ -1,0 +1,16 @@
+#ifndef AUTONOMOUSCOMMANDGROUP_H
+#define AUTONOMOUSCOMMANDGROUP_H
+
+#include "Commands/CommandGroup.h"
+
+/**
+ *
+ *
+ * @author Patrick
+ */
+class AutonomousCommandGroup: public CommandGroup {
+public:	
+	AutonomousCommandGroup();
+};
+
+#endif

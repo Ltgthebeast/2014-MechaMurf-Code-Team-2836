@@ -1,0 +1,40 @@
+#include "PBTSub.h"
+#include "../Robotmap.h"
+#include "../Commands/PBTArmKickerCommand.h"
+
+PBTSub::PBTSub() : Subsystem("PBTSub") {
+	PBTTalon = new Talon(5);
+	LimitSwitch1 = new DigitalInput(1);
+	//LimitSwitch2 = new DigitalInput(2);
+}
+    
+void PBTSub::InitDefaultCommand() {
+	// Set the default command for a subsystem here.
+	//SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new PBTArmKickerCommand());
+}
+
+void PBTSub::ArmKicker()
+{
+	bool LimitSwitchBool1 = LimitSwitch1->Get();//setting the kicker to the armed possision
+	if(LimitSwitchBool1 == true)
+	{
+		PBTTalon->Set(0.5);
+	}
+	else if(LimitSwitchBool1 == false)
+	{
+		PBTTalon->Set(0.0);
+	}
+}
+
+void PBTSub::Kick()
+{
+	PBTTalon->Set(0.5);//kick
+}
+
+void PBTSub::StopKicker()
+{
+	PBTTalon->Set(0.0);//stop the kicker
+}
+// Put methods for controlling this subsystem
+// here. Call these from Commands.

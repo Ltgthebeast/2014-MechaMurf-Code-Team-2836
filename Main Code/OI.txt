@@ -1,0 +1,40 @@
+#include "OI.h"
+#include "Commands/BCTHarvesterAngleTop.h"
+#include "Commands/BCTHarvesterAngleMed.h"
+#include "Commands/BCTHarvesterAngleLow.h"
+#include "Commands/PBTKickerCommand.h"
+#include "Commands/PBTArmKickerCommand.h"
+#include "Commands/DefaultHarvestCommand.h"
+#include "Commands/StopKickerCommand.h"
+
+OI::OI() {
+	// Process operator interface input here.
+	joystick1 = new Joystick(1);
+	joystick2 = new Joystick(2);
+	joystick3 = new Joystick(3);
+	joystick4 = new Joystick(4);
+	
+	//manualbutton = new JoystickButton(joystick4, 1);
+	//manualbutton->WhileHeld(new DefaultHarvestCommand());
+	
+	button1 = new JoystickButton(joystick3, 1);
+	button1->WhenPressed(new PBTKickerCommand());
+	
+	//button2 = new JoystickButton(joystick3, 2);
+	//button2->WhenPressed(new PBTArmKickerCommand);
+		
+	button7 = new JoystickButton(joystick3, 7);
+	button7->WhenPressed(new BCTHarvesterAngleTop());
+			
+	button9 = new JoystickButton(joystick3, 9);
+	button9->WhenPressed(new BCTHarvesterAngleMed());
+			
+	button11 = new JoystickButton(joystick3, 11);
+	button11->WhenPressed(new BCTHarvesterAngleLow());
+	
+	manualbutton1 = new JoystickButton(joystick4, 1);
+	manualbutton1->WhenPressed(new DefaultHarvestCommand());
+	
+	manualbutton7 = new JoystickButton(joystick4, 7);
+	manualbutton7->WhenPressed(new StopKickerCommand());
+}
